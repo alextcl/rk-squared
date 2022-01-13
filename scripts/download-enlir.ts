@@ -382,10 +382,7 @@ function convertLegendMateria(rows: any[]): any[] {
 
   for (let i = 1; i < rows.length; i++) {
     const item: any = {};
-    if (!rows.length || !rows[i][0]) {
-      // Skip explanatory text at the bottom of the sheet.
-      break;
-    }      
+
     for (let j = 0; j < rows[0].length; j++) {
       const col = rows[0][j];
       if (shouldAlwaysSkip(col)) {
@@ -500,7 +497,7 @@ function convertRecordMateria(rows: any[]): any[] {
 
   for (let i = 1; i < rows.length; i++) {
     const item: any = {};
-    for (let j = 0; j < rows[0].length; j++) {      
+    for (let j = 0; j < rows[0].length; j++) {
       const col = rows[0][j];
       if (shouldAlwaysSkip(col)) {
         continue;
@@ -617,7 +614,7 @@ function convertSkills(rows: any[], notes?: NotesRowData[], requireId = true): a
   const tierColumn = rows[0].indexOf('Tier');
 
   for (let i = 1; i < rows.length; i++) {
-    if (!rows[i].length || !rows[i][0]) {
+    if (!rows[i].length) {
       // Skip explanatory text at the bottom of the sheet.
       break;
     }
@@ -646,7 +643,7 @@ function convertSkills(rows: any[], notes?: NotesRowData[], requireId = true): a
         if (skillFields[col]) {
           item[field] = skillFields[col](rows[i][j]);
         } else {
-          item[field] = toCommon(field, rows[i][j]);          
+          item[field] = toCommon(field, rows[i][j]);
         }
       } catch (e) {
         logError(e, i, j, col, rows[i]);

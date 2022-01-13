@@ -160,7 +160,6 @@ export type Condition =
   | { type: 'femalesAlive'; count: number | number[]; plus?: boolean }
   | { type: 'realmCharactersInParty'; realm: EnlirAnyRealm; count: number | number[] }
   | { type: 'realmCharactersAlive'; realm: EnlirAnyRealm; count: number | number[]; plus: boolean }
-  | { type: 'attachElementInParty'; element: EnlirElement; count: number | number[]; plus: boolean }
   | { type: 'charactersAlive'; count: number | number[] }
   | { type: 'alliesJump'; count: number | number[] }
   | { type: 'doomTimer'; value: number | number[] }
