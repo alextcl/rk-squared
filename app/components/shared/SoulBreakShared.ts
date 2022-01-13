@@ -11,14 +11,11 @@ import {
   EnlirLimitBreakTier,
   EnlirSoulBreakOrLegendMateria,
   EnlirSoulBreakTier,
-  isPart1SoulBreak,
-  isPart2SoulBreak,
+  isSoulBreak2,
+  isArcaneDyad1st,
   makeLegendMateriaAliases,
   makeLimitBreakAliases,
   makeSoulBreakAliases,
-  isArcaneDyad,
-  isSoulBreak2,
-  isDualAwakening,
 } from '../../data/enlir';
 import { formatBraveCommands } from '../../data/mrP/brave';
 import { formatMrPSkill, MrPSkill } from '../../data/mrP/skill';
@@ -46,8 +43,6 @@ export function makeTierStyleMap(
     Glint: cssStyles.glint,
     'Glint+': cssStyles.glint,
     ADSB: cssStyles.arcaneDyad,
-    DASB: cssStyles.awakening,
-    'CSB+': cssStyles.chain,
 
     LBO: cssStyles.overstrikeLimitBreak,
     LBG: cssStyles.glint,
@@ -76,8 +71,6 @@ export const soulBreakAbbrevAliases = makeSoulBreakAliases(enlir.soulBreaks, {
   AASB: 'AA',
   SASB: 'SA',
   ADSB: 'AD',
-  DASB: 'DA',
- 'CSB+': 'C+',
   RW: '-',
   Shared: '-',
 });
@@ -95,11 +88,8 @@ export const legendMateriaAliases = makeLegendMateriaAliases(enlir.legendMateria
 
 export function formatSoulBreakOrLegendMateriaName(item: EnlirSoulBreakOrLegendMateria): string {
   let name = item.name;
-  if (isSoulBreak2(item) && isArcaneDyad(item) && isPart1SoulBreak(item)) {
+  if (isSoulBreak2(item) && isArcaneDyad1st(item)) {
     name = name.replace(/ \(Engaged\)$/, '');
-  }
-  if (isSoulBreak2(item) && isDualAwakening(item) && isPart2SoulBreak(item)) {
-    name = name.replace(/ \(Dual Shift\)$/, '');
   }
   return item.gl ? name : '“' + name + '”';
 }

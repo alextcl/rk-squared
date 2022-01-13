@@ -14,8 +14,7 @@ import {
   isBurstCommand,
   isNat,
   isSoulBreak,
-  isPart2SoulBreak,
-  isArcaneDyad,
+  isArcaneDyad2nd,
 } from '../enlir';
 import { appendCondition, describeCondition, describeMultiplierScaleType } from './condition';
 import { describeRageEffects } from './rage';
@@ -360,7 +359,7 @@ function describeSimpleFollowedBy(skill: EnlirSkill | SimpleSkill, attack: skill
 
   // Skip element, isRanged, isJump, school, no miss - these are assumed to be
   // the same as the parent.
-  damage += attack.overstrikeCap ? ' w/ ' + toMrPKilo(attack.overstrikeCap - 999) + ' cap' : '';
+  damage += attack.isOverstrike ? ' overstrike' : '';
   return damage;
 }
 
@@ -574,8 +573,7 @@ function describeAttackDamage(
         attack.scaleType.type === 'statusLevel' &&
         skill !== 'simple' &&
         isSoulBreak(skill) &&
-        isArcaneDyad(skill) &&
-        isPart2SoulBreak(skill)
+        isArcaneDyad2nd(skill)
       ) {
         scaleType = describeArcaneDyadCondition(skill);
       }
@@ -692,7 +690,7 @@ export function describeAttack(
   );
   damage += attack.isRanged && !attack.isJump ? ' rngd' : '';
   damage += attack.isJump ? ' jump' : '';
-  damage += attack.overstrikeCap ? ' w/ ' + toMrPKilo(attack.overstrikeCap - 999) + ' cap' : '';
+  damage += attack.isOverstrike ? ' overstrike' : '';
   damage += opt.includeSchool && school ? ' ' + getSchoolShortName(school) : '';
   damage += opt.showNoMiss && attack.hitRate === 100 ? ' no miss' : '';
 
